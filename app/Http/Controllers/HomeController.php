@@ -1,25 +1,25 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 class HomeController extends Controller {
-
     /*
-    |--------------------------------------------------------------------------
-    | ホームコントローラー
-    |--------------------------------------------------------------------------
-    |
-    | このコントローラーは認証済みのユーザーのアプリケーション
-    | 「ダッシュボード」をレンダーします。もちろん、希望に合わせ
-    | コントローラーを変更したり削除したりしてください。ここからappがスタートします！
-    |
-    */
+      |--------------------------------------------------------------------------
+      | ホームコントローラー
+      |--------------------------------------------------------------------------
+      |
+      | このコントローラーは認証済みのユーザーのアプリケーション
+      | 「ダッシュボード」をレンダーします。もちろん、希望に合わせ
+      | コントローラーを変更したり削除したりしてください。ここからappがスタートします！
+      |
+     */
 
     /**
      * 新しいコントローラーインスタンスの生成
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
@@ -28,9 +28,18 @@ class HomeController extends Controller {
      *
      * @return Response
      */
-    public function index()
-    {
-        return view('home');
+
+    /**
+    public function index() {
+      return view('home');
     }
+
+}
+
+     */
+    public function index() {
+        return view('userhome');
+    }
+
 
 }
