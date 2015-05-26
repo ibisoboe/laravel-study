@@ -45,6 +45,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/blog/newposts') }}">新規投稿</a></li>
+                                <li><a href="{{ url('/blog/newblogs') }}">新着投稿</a></li>
+                                <li><a href="{{ url('/blog/findblogs') }}">投稿検索</a></li>
                                 <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
                             </ul>
                         </li>

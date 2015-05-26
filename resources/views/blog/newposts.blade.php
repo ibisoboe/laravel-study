@@ -15,23 +15,25 @@
             <table class="table table-striped" border="1">
                 <div class="panel-body">
 
-                    <form method="post" action="{{ url('/blog/newposts') }}">
+                    <form method="post" action="{{ url('/blog/posts') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
 
-                        <!-- タイトル -->
                         <div class="form-group">
+                            <input type='hidden' name="name" class="form-control" value="{{ Auth::user()->name }}">
                             <label for="title">タイトル</label>
-                            <input type="text" name="title" class="form-control" value="{{ old('title') }}" placeholder="記事のタイトルを入力">
+                            <input type="text" name="title" class="form-control" placeholder="記事のタイトルを入力">
                         </div>
 
-                        <!-- 本文 -->
                         <div class="form-group">
-                            <label for="body">本文</label>
-                            <textarea name="body" class="form-control" rows="15" value="{{ old('body') }}" placeholder="本文を入力"></textarea>
+                            <label for="mainbody">本文</label>
+                            <textarea name="mainbody" class="form-control" rows="15"  placeholder="本文を入力"></textarea>
                         </div>
-
 
                         <button type="submit" class="btn btn-default">投稿</button>
+
                     </form>
+
+
             </table>      
         </div>
     </body>
