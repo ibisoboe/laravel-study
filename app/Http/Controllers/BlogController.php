@@ -8,34 +8,39 @@ use Redirect;
 use Session;
 use Input;
 use Validator;
-use App\posts;
-
+use App\post;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class BlogController extends Controller {
 
-    public function getNewposts() {
-        return view('blog/newposts');
+    public function getArticle() {
+        return view('blog/article')->withTitle('新規投稿');
     }
 
-    public function getNewblogs() {
-        return view('blog/newblogs');
+    public function getNews() {
+        return view('blog/news')->withTitle('新着投稿');
     }
 
-    public function getFindblogs() {
-        return view('blog/findblogs');
+    public function getSearch() {
+        return view('blog/search')->withTitle('投稿検索');
     }
 
-        public function postPosts(){
-        
-        $input = Input::only('name', 'title', 'mainbody');
-    		// 記事を DB に追加
-		$post = posts::create([
-			'name' => $input['name'],
-			'title' => $input['title'],
-			'mainbody' => $input['mainbody'],
-		]);
-		$post->save();
-        return view('blog.newposts');
+    public function postPosts() {
+        $input = Input::only('user_id', 'title', 'body');
+        $validator = Validator::make($input, [
+                    'title' => 'required',
+                    'body' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator->errors());
         }
-    
+        $post = post::create([
+                    'user_id' => $input['user_id'],
+                    'title' => $input['title'],
+                    'body' => $input['body'],
+        ]);
+        $post->save();
+        Session::flash('info', '投稿を保存しました');
+        return view('blog.article')->withTitle('新規投稿');
+    }
 }

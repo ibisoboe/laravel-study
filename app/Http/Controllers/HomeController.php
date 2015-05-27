@@ -38,7 +38,7 @@ class HomeController extends Controller {
 
      */
     public function index() {
-        return view('userhome');
+        return view('userhome') ->withTitle('ブロつく');
     }
 
 

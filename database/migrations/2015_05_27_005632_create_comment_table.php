@@ -5,19 +5,19 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCommentTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up() {
-        Schema::create('comment', function(Blueprint $table) {
+        Schema::create('comments', function(Blueprint $table) {
             $table->increments('id');
+            $table->integer('post_id')->unsigned();
             $table->string('name');
-            $table->bigInteger('postingid');
-            $table->string('title');
             $table->text('comment');
             $table->timestamps();
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
