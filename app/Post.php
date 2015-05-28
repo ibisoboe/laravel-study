@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class post extends Model {
+class Post extends Model {
 
     protected $table = 'posts';
 
@@ -15,4 +15,6 @@ class post extends Model {
      */
     protected $fillable = ['user_id', 'title', 'body'];
 
-}
+    }
+
+
