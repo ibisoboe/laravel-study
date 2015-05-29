@@ -12,11 +12,7 @@
         <div class="panel-body">
             <ul>
                 @foreach ($posts as $post)
-                <?php
-                $url = 'blog/article/'.$post->id;
-
-                ?>
-                <li><a href="{{url($url)}}">{{ $post->title }}</a></li>
+                <li><a href="{{url("blog/article/{$post->id}")}}">{{ $post->title }}</a></li>
                 @endforeach
             </ul>
         </div>

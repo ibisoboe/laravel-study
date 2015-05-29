@@ -20,7 +20,7 @@
     </div>
     @endif
 
-    <table class="table table-striped" border="1">
+
         <div class="panel-body">
 
             <form method="post" action="{{ url('blog/create') }}">
@@ -37,12 +37,9 @@
                     <textarea name="body" class="form-control" rows="15"  placeholder="本文を入力">{{old('body')}}</textarea>
                 </div>
 
-                <button type="submit" class="btn btn-default">投稿</button>
+                <button type="submit" class="btn btn-primary">投稿</button>
 
             </form>
-
-
-    </table>      
 </div>
 
 

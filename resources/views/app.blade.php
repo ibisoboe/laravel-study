@@ -45,7 +45,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/blog/create') }}">新規投稿</a></li>
-                                <li><a href="{{ url('/blog/news') }}">新着投稿</a></li>
+                                <li><a href="{{ url('/blog/news') }}">新着投稿一覧</a></li>
                                 <li><a href="{{ url('/blog/search') }}">投稿検索</a></li>
                                 <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
                             </ul>
@@ -55,13 +55,13 @@
                 </div>
             </div>
         </nav>
-        
+
         <div class="container">
             @if (Session::has('info'))
             <div class="alert alert-info" role="alert">{{ Session::get('info') }}</div>
             @endif
         </div>
-        
+
         @yield('content')
 
         <!-- Scripts -->

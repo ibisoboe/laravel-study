@@ -8,35 +8,59 @@ use Input;
 use Validator;
 use App\Post;
 use Auth;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller {
 
+    /**
+     * Get(ページ移行系)
+     * 
+     */
+    //新規投稿ページ移行
     public function getCreate() {
         return view('blog/create')->withTitle('新規投稿');
     }
 
+    //新着投稿一覧ページ移行
     public function getNews() {
-        $title = '新着投稿';
+        $title = '新着投稿一覧';
         $posts = Post::whereNotIn('user_id', [Auth::user()->id])->orderby('created_at', 'DESC')->take(10)->get();
         return view('blog/news', [
             'title' => $title,
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
+    //記事表示ページ移行
     public function getArticle($id) {
         $title = '投稿記事';
-        $posts = Post::where('id', $id);
+        $post = Post::findorfail($id);
         return view('blog/article', [
             'title' => $title,
-            'posts' => $posts
+            'post' => $post,
         ]);
     }
 
+    //投稿検索ページ移行
     public function getSearch() {
         return view('blog/search')->withTitle('投稿検索');
     }
 
+    //投稿編集ページ移行
+    public function getEdit($id) {
+        $title = '記事編集';
+        $post = Post::findorFail($id);
+        return view('blog/edit', [
+            'title' => $title,
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * POST・PUT(処理系)
+     * 
+     */
+    //新規投稿処理
     public function postCreate() {
         $input = Input::only('user_id', 'title', 'body');
         $validator = Validator::make($input, [
@@ -53,13 +77,25 @@ class BlogController extends Controller {
         ]);
         $post->save();
         Session::flash('info', '投稿を保存しました');
+        return redirect('home');
+    }
 
-        $title = 'ブロつく';
-        $posts = Post::where('user_id', [Auth::user()->id])->orderby('created_at', 'DESC')->take(10)->get();
-        return view('userhome', [
-            'title' => $title,
-            'posts' => $posts
+    //編集更新処理
+    public function putEdit(Request $request) {
+        $input = $request->only(['id', 'title', 'body']);
+        $validator = Validator::make($input, [
+                    'title' => 'required',
+                    'body' => 'required',
         ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator->errors());
+        }
+        $oldpost = Post::find($id = $input['id']);
+        $oldpost->title = $input['title'];
+        $oldpost->body = $input['body'];
+        $oldpost->save();
+        Session::flash('info', '編集を保存しました');
+        return redirect('home');
     }
 
 }

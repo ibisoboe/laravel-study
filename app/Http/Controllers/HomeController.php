@@ -42,10 +42,10 @@ class HomeController extends Controller {
      */
     public function index() {
         $title = 'ブロつく';
-        $posts = Post::where('user_id', [Auth::user()->id])->orderby('created_at', 'DESC')->take(10)->get();
+        $posts = Post::where('user_id',Auth::user()->id)->orderby('created_at', 'DESC')->take(10)->get();
         return view('userhome', [
             'title' => $title,
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 }
