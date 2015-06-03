@@ -7,6 +7,7 @@ use Session;
 use Input;
 use Validator;
 use App\Post;
+use App\Comment;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class BlogController extends Controller {
     //新着投稿一覧ページ移行
     public function getNews() {
         $title = '新着投稿一覧';
-        $posts = Post::whereNotIn('user_id', [Auth::user()->id])->orderby('created_at', 'DESC')->take(10)->get();
+        $posts = Post::where('user_id', '<>',[Auth::user()->id])->orderby('created_at', 'DESC')->take(10)->get();
         return view('blog/news', [
             'title' => $title,
             'posts' => $posts,
@@ -35,9 +36,11 @@ class BlogController extends Controller {
     public function getArticle($id) {
         $title = '投稿記事';
         $post = Post::findorfail($id);
+        $comments = Comment::where('post_id', $id)->get();
         return view('blog/article', [
             'title' => $title,
             'post' => $post,
+            'comments' => $comments
         ]);
     }
 
@@ -78,6 +81,25 @@ class BlogController extends Controller {
         $post->save();
         Session::flash('info', '投稿を保存しました');
         return redirect('home');
+    }
+    
+        //コメント投稿処理
+    public function postComment($id) {
+        $input = Input::only('name', 'comment');
+        $validator = Validator::make($input, [
+                    'comment' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator->errors());
+        }
+        $post = Comment::create([
+                    'post_id' => $id,
+                    'name' => $input['name'],
+                    'comment' => $input['comment'],
+        ]);
+        $post->save();
+        Session::flash('info', 'コメントを保存しました');
+        return redirect("blog/article/{$id}");
     }
 
     //編集更新処理
