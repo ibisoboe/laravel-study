@@ -20,6 +20,7 @@ Route::get('home', 'HomeController@index');
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
-    'blog' => 'BlogController'
+    'blog' => 'BlogController',
+    'profile'=>'ProfileController',
 ]);
 

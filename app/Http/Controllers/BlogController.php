@@ -7,7 +7,6 @@ use Session;
 use Input;
 use Validator;
 use App\Post;
-use App\User;
 use App\Comment;
 use Auth;
 use Illuminate\Http\Request;
