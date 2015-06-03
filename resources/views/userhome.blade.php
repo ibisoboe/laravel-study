@@ -11,15 +11,15 @@
     <div class="page-header">
         <h1>ブログメインメニュー</h1>
     </div>
-    <div class="panel-body">
+
 
         <!-- ブログタイトル表示 -->
-        <ul>
-            @foreach ($posts as $post)
-            <li><a href="{{ url("blog/article/{$post->id}") }}">{{ $post->title }}</a></li>
-            @endforeach
-        </ul>
+    <div class="panel-body">
+        @foreach ($posts as $post)
+            <a href="{{ url("blog/article/{$post->id}") }}"><h3>{{ $post->title }}</h3></ha><hr>
+        @endforeach
+
     </div>
+</div>
 
-
-    @endsection
+@endsection

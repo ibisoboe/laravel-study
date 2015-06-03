@@ -6,67 +6,78 @@
 
 
 <div class="container">
-
-    <!-- ヘッダ表示部 -->
-    <div class="page-header">
-        <h1>投稿記事</h1>
-    </div>
-
-    <!-- タイトル表示：自分の投稿であれば編集リンクつきタイトル表示 -->
-    <div class="form-group">
-        @if (Auth::user()->id == $post->user_id)
-
-        <h2>タイトル <small><a  class="btn btn-primary pull-right" href="{{ url("blog/edit/{$post->id}") }}">編集</a></small></h2>
-        @else
-        <h2>タイトル </h2>
-        @endif
-        <pre>{{ $post->title }}</pre>
-    </div>
-
-    <!-- 本文表示 -->
-    <div class="form-group">
-        <h2>本文</h2>
-        <pre>{{ $post->body }}</pre>
-    </div>
-</div>
-</div>
-<br>
-
-<!-- コメント表示 -->
-<div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2><span class="glyphicon glyphicon-pencil"></span>コメント</h2>
+    <div class="row">
+        <!-- ヘッダ表示部 -->
+        <div class="page-header">
+            <h1>投稿記事</h1>
         </div>
-        <div class="panel-body">
-            <center>
+
+        <!-- タイトル表示：自分の投稿であれば編集リンクつきタイトル表示 -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @if (Auth::user()->id == $post->user_id)
+                <h3>{{ $post->title }}<small><a  class="btn btn-primary pull-right" href="{{ url("blog/edit/{$post->id}") }}">編集</a></small></h3>
+                @else
+                <h3>{{ $post->title }}</h3>
+                @endif
+            </div>
+
+            <!-- 本文表示 -->
+
+            <div class="panel-body">
+                <h2><pre>{{ $post->body }}</pre></h2>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- コメント表示 -->
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>コメント</h3>
+            </div>
+            <div class="panel-body">
                 @if(count($comments) === 0)
-                コメントはありません
+                <center>コメントはありません</center>
                 @else
                 @foreach ($comments as $comment)
-                <div align=left>{{ $comment->name}}</div><div>{{ $comment->comment }}</div><hr>
+
+                <div class="col-md-1">{{ $comment->name}}<hr></div>
+                <div class="col-md-8">{{ $comment->comment }}<hr></div>
+                <div class="col-md-3">{{ $comment->created_at }}<hr></div>
+
                 @endforeach
                 @endif
-            </center>
+            </div>
+
         </div>
     </div>
-
     <br>
     <br>
 
     <!--コメント入力-->
-    <div class="container">
+    <div class="row">
         <form method="post" action="{{ url("blog/comment/{$post->id}") }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
             <input type='hidden' name="name" class="form-control" value="{{ Auth::user()->name }}">
             <div class="form-group">
-                <h2>コメント投稿</h2>
-                <textarea name="comment" class="form-control" rows="7"  placeholder="コメントを入力">{{old('comment')}}</textarea>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>コメント投稿<span class="glyphicon glyphicon-pencil"></span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <textarea name="comment" class="form-control" rows="3"  placeholder="コメントを入力">{{old('comment')}}</textarea>
+                        <br>
+                        <button type="submit" class="btn btn-primary pull-right">投稿</button>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary pull-right">投稿</button>
         </form>
     </div>
+</div>
 
 
-
-    @endsection
+@endsection
