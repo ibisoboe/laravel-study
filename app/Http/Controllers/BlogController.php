@@ -37,6 +37,7 @@ class BlogController extends Controller {
         $title = '投稿記事';
         $post = Post::findorfail($id);
         $comments = Comment::where('post_id', $id)->get();
+    //    dd($comments);
         return view('blog/article', [
             'title' => $title,
             'post' => $post,
