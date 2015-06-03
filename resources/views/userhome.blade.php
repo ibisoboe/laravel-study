@@ -13,12 +13,16 @@
     </div>
 
 
-        <!-- ブログタイトル表示 -->
+    <!-- ブログタイトル表示 -->
+
     <div class="panel-body">
         @foreach ($posts as $post)
-            <a href="{{ url("blog/article/{$post->id}") }}"><h3>{{ $post->title }}</h3></ha><hr>
+        <a href="{{ url("blog/article/{$post->id}") }}"><h3>{{ $post->title }}</h3></a>
+        <h4>{{ $post->body }}</h4>
+        <h5 class="pull-right">{{ $post->updated_at}}</h5>
+        <br>
+        <hr>
         @endforeach
-
     </div>
 </div>
 

@@ -7,7 +7,18 @@
 
 <div class="container">
     <div class="row">
+        @if(count($errors) > 0)
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <!-- ヘッダ表示部 -->
+
         <div class="page-header">
             <h1>投稿記事</h1>
         </div>
@@ -26,14 +37,15 @@
             <!-- 本文表示 -->
 
             <div class="panel-body">
-                <h2><pre>{{ $post->body }}</pre></h2>
+                <pre><h4>{{ $post->body }}</h4></pre>
+                <h5 class="pull-right">{{$post->updated_at}}</h5>
             </div>
         </div>
     </div>
-
     <br>
 
     <!-- コメント表示 -->
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -44,21 +56,19 @@
                 <center>コメントはありません</center>
                 @else
                 @foreach ($comments as $comment)
-
                 <div class="col-md-1">{{ $comment->name}}<hr></div>
                 <div class="col-md-8">{{ $comment->comment }}<hr></div>
                 <div class="col-md-3">{{ $comment->created_at }}<hr></div>
-
                 @endforeach
                 @endif
             </div>
-
         </div>
     </div>
     <br>
     <br>
 
     <!--コメント入力-->
+
     <div class="row">
         <form method="post" action="{{ url("blog/comment/{$post->id}") }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
