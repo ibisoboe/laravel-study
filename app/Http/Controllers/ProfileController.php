@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Profile;
 
 class ProfileController extends Controller {
 
@@ -11,9 +12,11 @@ class ProfileController extends Controller {
      */
     //新規投稿ページ移行
     public function getProfile($id) {
-        $title= 'プロフィール';
-        return view('profile/profile',[
-            'title' =>$title,
+        $profile = Profile::where('user_id', '=', "$id")->get();
+        $title = 'プロフィール';
+        return view('profile/profile', [
+            'title' => $title,
+            'profile' => $profile,
         ]);
     }
 

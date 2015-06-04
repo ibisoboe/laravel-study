@@ -3,22 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
-class Post extends Model {
 
-    protected $table = 'posts';
+class Profile extends Model {
+
+    protected $table = 'profiles';
 
     /**
      * 複数代入を行う属性
      *
      * @var array
      */
-    protected $fillable = ['id','user_id', 'title', 'body'];
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ['id','user_id', 'image_path', 'profile','gender','age'];
+
     }
 
 
