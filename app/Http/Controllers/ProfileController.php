@@ -69,15 +69,8 @@ class ProfileController extends Controller
                 'user_id'    => $id,
                 'image_path' => "img/{$id}/{$newname}"
             ]);
-            //レコードはあるが、image_pathがnullの場合
-        } else
-            //if (is_null($profile->image_path)) {
-            //Profile::create([
-             //   'image_path' => "img/{$id}/{$newname}"
-           // ]);
-            //レコードがあり、image_pathもある場合
-        //} else
-         {
+            //レコードはあるが、image_pathがnullなどの場合
+        } else {
             $oldprofile             = Profile::find($id);
             $oldprofile->image_path = "img/{$id}/{$newname}";
             $oldprofile->save();
