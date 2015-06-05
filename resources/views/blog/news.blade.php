@@ -13,8 +13,8 @@
     <div class="panel-body">
         <a class="col-md-8" href="{{ url("blog/article/{$post->id}") }}"><h3>{{ $post->title }}</h3></a>
         <h4 class="col-md-4 pull-right">{{ $post->user->name}}</h4>
-        <h4 class="col-md-8">{{ $post->body }}</h4>
-        <h5 class="col-md-4 pull-right">{{ $post->updated_at}}</h5>
+        <h4 class="col-md-8">{!! nl2br(e($post->body)) !!}</h4>
+        <h5 class="col-md-4 pull-right">{{ $post->created_at}}</h5>
     </div>
     <hr>
     @endforeach

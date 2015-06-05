@@ -27,7 +27,7 @@ class CreateCommentTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('comment');
+        Schema::drop('comments');
     }
 
 }

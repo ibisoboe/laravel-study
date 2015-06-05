@@ -18,7 +18,7 @@
     <div class="panel-body">
         @foreach ($posts as $post)
         <a href="{{ url("blog/article/{$post->id}") }}"><h3>{{ $post->title }}</h3></a>
-        <h4>{{ $post->body }}</h4>
+        <h4>{!! nl2br(e($post->body)) !!}</h4>
         <h5 class="pull-right">{{ $post->updated_at}}</h5>
         <br>
         <hr>
