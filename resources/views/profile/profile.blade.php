@@ -40,10 +40,10 @@
                 <!--画像アップロード-->
                 @if(Auth::guest() || URL::current() == url("/profile/profile/{$id}"))
                 <div class="form-group">
-                    <?= Form::open(['url' => 'profile/upload/{$id}', 'files' => true]) ?>
+                    <?= Form::open(['url' => "profile/upload/{$id}", 'files' => true]) ?>
                     <?= Form::file('image', ['class' => 'form-control']) ?>
                 </div>
-                <input type="submit" class="btn btn-primary" value="画像をアップロード"></button>
+                <input type="submit" class="btn btn-primary" value="画像をアップロード"></input>
                 <?= Form::close() ?>
                 @else
                 @endif
